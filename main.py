@@ -287,6 +287,7 @@ def contact():
 #         connection.login(MAIL_ADDRESS, MAIL_APP_PW)
 #         connection.sendmail(MAIL_ADDRESS, MAIL_APP_PW, email_message)
 
+puerto = int(os.environ.get("PORT", 5001))
 
 if __name__ == "__main__":
     if os.environ.get("FLASK_ENV") == "development":
@@ -296,4 +297,4 @@ if __name__ == "__main__":
         # 🚀 Si no, levantamos Waitress automáticamente desde aquí
         from waitress import serve
         print("Modo Producción Activo (Waitress) en http://localhost:8080")
-        serve(app, host='0.0.0.0', port=8080)
+        serve(app, host='0.0.0.0', port=puerto)

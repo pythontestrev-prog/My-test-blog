@@ -14,6 +14,7 @@ from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 # import smtplib
 from dotenv import load_dotenv
 import os
+from waitress import serve
 
 load_dotenv()
 
@@ -288,4 +289,11 @@ def contact():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    if os.environ.get("FLASK_ENV") == "development":
+        print("Modo Desarrollo Activo")
+        app.run(debug=True, port=5001)
+    else:
+        # 🚀 Si no, levantamos Waitress automáticamente desde aquí
+        from waitress import serve
+        print("Modo Producción Activo (Waitress) en http://localhost:8080")
+        serve(app, host='0.0.0.0', port=8080)
